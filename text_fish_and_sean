@@ -1,0 +1,20 @@
+#!/bin/bash
+
+TWILLIO_AUTHTOKEN='CHANGEME'
+MESSAGE="$1"
+
+shift
+
+text() {
+   curl -X POST 'https://api.twilio.com/2010-04-01/Accounts/AC6d9244bf1bbd92a4fae786250bece393/Messages.json' \
+   --data-urlencode "To=$1"  \
+   --data-urlencode 'From=+16475030441'  \
+   --data-urlencode 'Body=Hey Sean, this is Denys (ignore the weird number). Theres AYCE sushi at 12pm @ Aji Sai (Queen+Spadina) happening tomorrow, hope you can make it! This is an automated message, do not reply' \
+   -u AC6d9244bf1bbd92a4fae786250bece393:$TWILLIO_AUTHTOKEN
+}
+
+SEAN='+14168238126'
+
+text $SEAN
+
+
