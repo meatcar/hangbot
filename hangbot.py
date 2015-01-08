@@ -32,10 +32,12 @@ class Hangbot():
     # https://developers.google.com/gmail/api/v1/reference/quota
     sleep = 1.0/25
 
-    def __init__(self, msg_f, meta_f):
+    def __init__(self, msg_f, meta_f, label):
         self.msg_f = msg_f
         self.meta_f = meta_f
         self.gmail = self.get_gmail()
+
+        self.hangout_label = label
 
         self.messages = []
 
@@ -119,7 +121,7 @@ class Hangbot():
 
         chat_label_id = ''
         for label in response['labels']:
-            if label['name'] == 'test':
+            if label['name'] == self.hangout_label:
                 chat_label_id = label['id']
 
         stop = False
@@ -184,7 +186,7 @@ if __name__ == "__main__":
 
     with open("/data/messages", "w") as msg_f:
         with open("/data/meta", "w") as meta_f:
-            hb = Hangbot(msg_f, meta_f)
+            hb = Hangbot(msg_f, meta_f, label="test")
             hb.get_messages()
 
 
